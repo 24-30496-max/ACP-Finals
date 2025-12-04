@@ -1,8 +1,7 @@
 from flask import Flask, render_template, redirect, url_for, session, flash
 from models import db, User, Book
 from forms import RegistrationForm, LoginForm, BookForm
-
-""" Flask Basics 7 pts. Complete the code """
+from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'mysecretkey'
@@ -14,7 +13,17 @@ db.init_app(app)
 with app.app_context():
     db.create_all()
 
-""" Flask Basics 7 pts. Implement the route """ 
+@app.route('/delete/<int:book_id>', methods=['POST'])
+def delete_book(book_id):
+    if 'user_id' not in session:
+        flash('Please log in first.')
+        return redirect(url_for('login'))
+    book = Book.query.get(book_id)
+    if book and book.user_id == session['user_id']:
+        db.session.delete(book)
+        db.session.commit()
+        flash('Book deleted successfully!')
+    return redirect(url_for('index'))
 
 @app.route('/')  
 def index():
@@ -22,10 +31,8 @@ def index():
         flash('Please log in first.')
         return redirect(url_for('login'))
     user = User.query.get(session['user_id'])
-
-    """ Flask Basics 7 pts. Complete the return Function """
-
-    return render_template('index.html', user=user) 
+    books = Book.query.filter_by(user_id=session['user_id']).all()
+    return render_template('index.html', user=user, books=books) 
 
 @app.route('/register', methods=['GET', 'POST']) 
 def register():
@@ -74,3 +81,6 @@ def add_book():
         flash('Book added successfully!')
         return redirect(url_for('index'))
     return render_template('add_book.html', form=form)
+
+if __name__ == '__main__':
+    app.run(debug=True)
