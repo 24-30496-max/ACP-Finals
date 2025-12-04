@@ -2,111 +2,6 @@
 <html>
 <head>
     <title>Book Manager</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f5f5f5;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: white;
-            padding: 20px;
-            border-radius: 5px;
-        }
-        nav {
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #ccc;
-        }
-        nav a {
-            margin-right: 15px;
-            text-decoration: none;
-            color: #007bff;
-        }
-        nav a:hover {
-            text-decoration: underline;
-        }
-        .alerts {
-            margin-bottom: 20px;
-        }
-        .alert {
-            padding: 10px;
-            margin-bottom: 10px;
-            background-color: #d4edda;
-            border: 1px solid #c3e6cb;
-            color: #155724;
-            border-radius: 3px;
-        }
-        form {
-            margin-top: 20px;
-        }
-        div {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-        input[type="text"],
-        input[type="password"] {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-            box-sizing: border-box;
-        }
-        input[type="submit"],
-        button {
-            background-color: #007bff;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-        }
-        input[type="submit"]:hover,
-        button:hover {
-            background-color: #0056b3;
-        }
-        .errors {
-            color: #d9534f;
-            list-style: none;
-            padding-left: 0;
-            margin-top: 5px;
-        }
-        .errors li {
-            padding: 5px;
-            background-color: #f2dede;
-            border: 1px solid #ebccd1;
-            border-radius: 3px;
-            margin-bottom: 5px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        table th, table td {
-            padding: 10px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-        table th {
-            background-color: #f9f9f9;
-            font-weight: bold;
-        }
-        .delete-btn {
-            background-color: #dc3545;
-            padding: 5px 10px;
-            font-size: 12px;
-        }
-        .delete-btn:hover {
-            background-color: #c82333;
-        }
-    </style>
 </head>
 <body>
     <div class="container">
@@ -121,7 +16,6 @@
                 <a href="{{ url_for('register') }}">Register</a>
             {% endif %}
         </nav>
-
         <div class="alerts">
             {% with messages = get_flashed_messages() %}
                 {% if messages %}
@@ -131,7 +25,6 @@
                 {% endif %}
             {% endwith %}
         </div>
-
         {% block content %}{% endblock %}
     </div>
 </body>
